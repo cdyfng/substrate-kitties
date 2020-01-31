@@ -55,7 +55,8 @@ pub type BlockNumber = u64;
 pub type Nonce = u64;
 
 /// Used for the module template in `./template.rs`
-mod template;
+//mod template;
+mod substratekitties;
 
 /// Opaque types. These are used by the CLI to instantiate machinery that don't need to know
 /// the specifics of the runtime. They can then be made to be agnostic over specific formats
@@ -91,8 +92,8 @@ pub mod opaque {
 
 /// This runtime version.
 pub const VERSION: RuntimeVersion = RuntimeVersion {
-	spec_name: create_runtime_str!("node-template"),
-	impl_name: create_runtime_str!("node-template"),
+	spec_name: create_runtime_str!("substratekitties"),
+	impl_name: create_runtime_str!("substratekitties"),
 	authoring_version: 3,
 	spec_version: 4,
 	impl_version: 4,
@@ -186,15 +187,10 @@ impl sudo::Trait for Runtime {
 	type Proposal = Call;
 }
 
-/// Used for the module template in `./template.rs`
-impl template::Trait for Runtime {
+impl substratekitties::Trait for Runtime {
 	type Event = Event;
 }
 
-/// Used for the module template in `./template.rs`
-impl substrate_module_template::Trait for Runtime {
-	type Event = Event;
-}
 
 construct_runtime!(
 	pub enum Runtime with Log(InternalLog: DigestItem<Hash, AuthorityId, AuthoritySignature>) where
@@ -210,8 +206,9 @@ construct_runtime!(
 		Balances: balances,
 		Sudo: sudo,
 		// Used for the module template in `./template.rs`
-		TemplateModule: template::{Module, Call, Storage, Event<T>},
-		ExampleModule: substrate_module_template::{Module, Call, Storage, Event<T>},
+		// TemplateModule: template::{Module, Call, Storage, Event<T>},
+		// ExampleModule: substrate_module_template::{Module, Call, Storage, Event<T>},
+		Substratekitties: substratekitties::{Module, Call, Storage, Event<T>},
 
 	}
 );
